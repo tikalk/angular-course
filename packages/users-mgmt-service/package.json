@@ -1,10 +1,15 @@
 {
-  "name": "users-mgmt-service",
+  "name": "@angularcourse/users-mgmt-service",
   "version": "1.0.0",
+  "type": "module",
   "scripts": {
-    "start" : "node server.js"
+    "start": "node --experimental-modules server.js --port 3001"
   },
   "dependencies": {
-    "express": "^4.17.1"
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.4",
+    "express": "^4.17.1",
+    "get-arguments-lib": "^1.0.1",
+    "@angularcourse/session-manager": "1.0.0"
   }
 }

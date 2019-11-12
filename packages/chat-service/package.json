@@ -1,0 +1,19 @@
+{
+  "name": "@angularcourse/chat-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node --experimental-modules server.js --port 3002"
+  },
+  "dependencies": {
+    "@angularcourse/session-manager": "1.0.0",
+    "express": "^4.17.1",
+    "get-arguments-lib": "^1.0.1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
