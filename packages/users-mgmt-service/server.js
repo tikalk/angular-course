@@ -16,6 +16,9 @@ app.use(cookieParser());
 app.use(bodyParser.json())
 app.use(sessionMiddleware());
 
+app.get('/users', (req, res) => {
+    res.status(200).send(users);
+})
 
 app.get('/user/:id',   (req, res) => {
     const id = req.params['id'];
@@ -70,5 +73,6 @@ app.post('/register',  (req, res) => {
 })
 
 
-app.listen(port, () => console.log(`Listenning on port ${port}, press ^c to stop`))
+app.listen(port, () =>
+    console.log(`Listenning on port ${port}, press ^c to stop`))
 
