@@ -1,0 +1,10 @@
+button {
+  border-radius: 5px;
+  border-width: 1px;
+  background: none;
+  cursor: pointer;
+  transition: font-size 0.5s;
+  &:hover {
+    font-size: 1.2em;
+  }
+}
