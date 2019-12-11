@@ -3,7 +3,8 @@
   "private": true,
   "scripts": {
     "start": "lerna run --parallel start ",
-    "prettier": "prettier --check --write \"**/*.js\""
+    "prettier": "prettier --check --write \"**/*.js\"",
+    "install": "lerna bootstrap"
   },
   "husky": {
     "pre-commit": "npm run pretier"
