@@ -1,0 +1,27 @@
+<form (submit)="onSubmit()" [formGroup]="registrationFormGroup">
+  <div>
+    <label>
+      Username: <input type="text" [ngClass]="{'input-error': getErrors('username')}"
+                        placeholder="Your username" name="username" formControlName="username">
+    </label>
+  </div>
+  <div>
+    <label>
+      Password: <input type="password"    placeholder="Your password" name="password"  formControlName="password">
+    </label>
+  </div>
+  <div>
+    <label>
+      First name: <input type="text"
+                       placeholder="Your first name" name="firstName" formControlName="firstName">
+    </label>
+  </div>
+  <div>
+    <label>
+      Last name: <input type="text"
+                         placeholder="Your last name" name="lastName" formControlName="lastName">
+    </label>
+  </div>
+
+  <button type="submit">Send</button>
+</form>

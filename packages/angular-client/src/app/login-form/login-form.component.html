@@ -1,0 +1,13 @@
+<form>
+  <div>
+    <label>
+      Username: <input type="text" [ngClass]="{'input-error': getErrors('username')}"
+                       placeholder="Your username" name="username" formControlName="username">
+    </label>
+  </div>
+  <div>
+    <label>
+      Password: <input type="password"    placeholder="Your password" name="password"  formControlName="password">
+    </label>
+  </div>
+</form>

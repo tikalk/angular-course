@@ -1,0 +1,9 @@
+<ul>
+  <li [class.active]=" activeItem === 'home'" >Home</li>
+  <li [class.active]=" activeItem === 'about'">About</li>
+  <li [class.active]=" activeItem === 'contact'">Contact</li>
+
+</ul>
+<h2>This comes from navbar</h2>
+<ng-content></ng-content>
+<button (click)="buttonClick($event)">Click me</button>

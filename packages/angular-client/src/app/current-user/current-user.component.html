@@ -1,0 +1,4 @@
+<div *ngIf="currentUser">
+  <div>Hello {{currentUser.firstName}} {{currentUser.lastName}}</div>
+  <button (click)="onLogOut()">Log out</button>
+</div>

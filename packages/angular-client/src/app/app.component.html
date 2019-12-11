@@ -1,0 +1,23 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<header>
+  <div>
+    <div class="headline">
+     Angular course
+    </div>
+
+    <div class="right-element">
+    <current-user *ngIf="userExists$ | async"   (logout)="onLogout()"[currentUser]="userExists$ | async"></current-user>
+    </div>
+  </div>
+</header>
+<app-frame *ngIf="!(userExists$ | async)">
+  <registration-form (userCreated)="onUserCreated($event)"></registration-form>
+
+
+</app-frame>
+
+<h3>Users list</h3>
+<user-name *ngFor="let user of users; let index = index;" [number]="index + 1" [username]="user.username">
+</user-name>
+
+<router-outlet></router-outlet>
