@@ -42,6 +42,12 @@ export function createSession() {
 
     return newSession;
 }
+const sessionCookie = 'SESSION_COOKIE';
+export const clearSession = (req, res) => {
+    const token = req.cookies[sessionCookie];
+    delete sessions[token];
+    res.cookie(sessionCookie, null)
+}
 
 export const sessionMiddleware = () => {
  //   this.use(cookieParser());
@@ -49,7 +55,7 @@ export const sessionMiddleware = () => {
     return cookieParser(),  (req, res, next) => {
 
 
-        const sessionCookie = 'SESSION_COOKIE';
+
         const token = req.cookies[sessionCookie];
 
         let currentSession = getSessionByToken(token);
