@@ -1,9 +1,18 @@
-import {Component, OnInit, ViewChild, ViewEncapsulation, ViewChildren, AfterViewInit, AfterViewChecked} from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ViewEncapsulation,
+  ViewChildren,
+  AfterViewInit,
+  AfterViewChecked,
+  OnDestroy
+} from '@angular/core';
 import {NavigationBarComponent} from './navigation-bar/navigation-bar.component';
 import {UserNameComponent} from './user-name/user-name.component';
 import {User} from './data-model/User';
 import {UsersManagementService} from './users-management.service';
-import {Observable} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -12,10 +21,11 @@ import {Observable} from 'rxjs';
   encapsulation: ViewEncapsulation.ShadowDom
 
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
 
   userExists$: Observable<User>
   title = 'chat-client';
+  private subscription: Subscription;
 
     constructor(private usersManamgementService: UsersManagementService) {
     }
@@ -23,9 +33,11 @@ export class AppComponent implements OnInit {
 
   onUserCreated(userData: User) {
 
-    this.usersManamgementService.createUser(userData).subscribe(user => {
-      this.users =[...this.users, user];
-    })
+  this.subscription.add(  this.usersManamgementService.createUser(userData)
+      .subscribe(user => {
+     // this.users =[...this.users, user];
+     // this.users.push(user);
+    }));
   }
 
   onLogout() {
@@ -41,8 +53,19 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
 
     this.userExists$ = this.usersManamgementService.getCurrentUser();
-    this.usersManamgementService.getUsers().subscribe(users=> this.users = users);
+  this.subscription =  this.usersManamgementService.getUsers().
+    subscribe(users=> {
+      this.users = users
+    });
 
+
+
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
 

@@ -25,7 +25,7 @@ app.get('/user/:id',   (req, res) => {
 
     const user = users[id];
 
-    res.status(200).send(user || {});
+    res.status(200).send(user || null);
 });
 
 app.post('login', (req, res) => {
