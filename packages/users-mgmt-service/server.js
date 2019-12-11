@@ -20,6 +20,14 @@ app.get('/users', (req, res) => {
     res.status(200).send(users);
 })
 
+app.delete('/user/:userId', (req, res) => {
+   const id = req.params['userId'];
+   delete users[id];
+
+   res.status(204).send(undefined);
+
+});
+
 app.get('/user/:id',   (req, res) => {
     const id = req.params['id'];
 
@@ -58,7 +66,7 @@ app.put('/user/:id',   (req, res) => {
 })
 
 app.post('/register',  (req, res) => {
-    const userId = req.body.userId;
+    const userId = req.body.username;
 
     if (users[userId]) {
         res.status(400).send({error: 'User already exist'});

@@ -14,33 +14,42 @@ export class UsersManagementService {
   constructor(private httpClient: HttpClient) {
   }
 
-  users = [];
+
+  users: User[] = [];
+
   currentUserSubject$ = new BehaviorSubject<User>(null)
-  allUsersSubject$ = new BehaviorSubject<User[]>(this.users);
+  allUsersSubject$ = new BehaviorSubject<User[]>([]);
   getUsers(): Observable<User[]> {
+    const usersFromServer$ =  this.httpClient.get<{[name: string] : User}>('/api/users/users')
+      .pipe(map(usersObj => {
+        return Object.keys(usersObj).map(key => usersObj[key])
+      }));
+
+    usersFromServer$.subscribe(users => {
+      this.users = users;
+      this.allUsersSubject$.next(users)
+    });
+
     return this.allUsersSubject$;
-    // return this.httpClient.get<{[name: string] : User}>('/api/users/users')
-    //   .pipe(map(usersObj => {
-    //     return Object.keys(usersObj).map(key => usersObj[key])
-    //   }));
   }
 
   createUser(userData: User): Observable<User> {
 
-    this.users.push(userData);
-    this.allUsersSubject$.next(this.users);
 
-    return of(userData);
+    const observable =  this.httpClient.post<User>('/api/users/register', userData);
+    observable.subscribe(user => {
+      this.currentUserSubject$.next(user);
+      this.users.push(user);
+     // this.allUsersSubject$.next(this.users);
 
-    // const observable =  this.httpClient.post<User>('/api/users/register', userData);
-    // observable.subscribe(user => this.currentUserSubject$.next(user));
-    // return observable;
+    });
+
+    return observable;
   }
 
   getUsrById(userId: string): Observable<User> {
-    const user = this.users.find(user => user.username === userId);
-    return of(user);
-    // return this.httpClient.get<User>(`/api/users/user/${userId}`);
+
+     return this.httpClient.get<User>(`/api/users/user/${userId}`);
   }
 
   userExistValidator(): null | ValidationErrors {
